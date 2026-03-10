@@ -19,6 +19,7 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
 
   body {
     background: var(--dark);
@@ -26,6 +27,100 @@
     font-family: 'Libre Franklin', sans-serif;
     line-height: 1.7;
     overflow-x: hidden;
+  }
+
+  /* ── STICKY NAV ── */
+  .site-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    height: 60px;
+    background: rgba(13, 13, 13, 0.65);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .site-nav.scrolled {
+    background: rgba(13, 13, 13, 0.92);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .nav-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--cream);
+    padding: 7px 16px;
+    border: 1px solid rgba(250, 246, 238, 0.12);
+    border-radius: 100px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .nav-pill:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(201, 168, 76, 0.08);
+  }
+
+  .nav-pill svg {
+    width: 13px;
+    height: 13px;
+    flex-shrink: 0;
+  }
+
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--deep-green);
+    background: var(--gold);
+    padding: 8px 20px;
+    border-radius: 100px;
+    border: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    margin-left: 4px;
+  }
+
+  .nav-cta:hover {
+    background: var(--gold-light);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(201, 168, 76, 0.3);
   }
 
   /* ── HERO SECTION ── */
@@ -36,7 +131,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 60px 24px;
+    padding: 100px 24px 60px;
     position: relative;
     background:
       radial-gradient(ellipse at 20% 50%, rgba(26, 60, 52, 0.6) 0%, transparent 60%),
@@ -143,6 +238,139 @@
     color: var(--cream);
   }
 
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Libre Franklin', sans-serif;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--deep-green);
+    background: var(--gold);
+    padding: 18px 52px;
+    border-radius: 0;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-top: 36px;
+    animation: fadeInUp 1s ease-out 1s both;
+  }
+
+  .hero-cta:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(201, 168, 76, 0.3);
+  }
+
+  .hero-cta svg { width: 14px; height: 14px; }
+
+  /* ── HORIZONTAL TIMELINE ── */
+  .timeline-section {
+    padding: 60px 24px 70px;
+    background: linear-gradient(180deg, rgba(26, 60, 52, 0.15) 0%, var(--dark) 100%);
+    border-bottom: 1px solid rgba(201, 168, 76, 0.08);
+    overflow: hidden;
+  }
+
+  .timeline-section .section-header { margin-bottom: 40px; }
+
+  .timeline-track-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    overflow-x: auto;
+    padding-bottom: 12px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold) transparent;
+  }
+
+  .timeline-track-wrapper::-webkit-scrollbar { height: 4px; }
+  .timeline-track-wrapper::-webkit-scrollbar-track { background: transparent; }
+  .timeline-track-wrapper::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+
+  .timeline-track {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    position: relative;
+    min-width: max-content;
+    padding: 0 20px;
+  }
+
+  .timeline-track::before {
+    content: '';
+    position: absolute;
+    top: 38px;
+    left: 20px;
+    right: 20px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), rgba(201, 168, 76, 0.3), var(--gold));
+  }
+
+  .tl-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 130px;
+    position: relative;
+    padding: 0 6px;
+  }
+
+  .tl-time {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.85rem;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 12px;
+    white-space: nowrap;
+  }
+
+  .tl-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--dark);
+    border: 2px solid var(--gold);
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+  }
+
+  .tl-node:hover .tl-dot {
+    background: var(--gold);
+    box-shadow: 0 0 14px rgba(201, 168, 76, 0.5);
+  }
+
+  .tl-node:first-child .tl-dot,
+  .tl-node:last-child .tl-dot {
+    width: 18px;
+    height: 18px;
+    border-width: 3px;
+  }
+
+  .tl-label {
+    margin-top: 14px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: rgba(250, 246, 238, 0.7);
+    text-align: center;
+    line-height: 1.4;
+    max-width: 120px;
+  }
+
+  .tl-node:hover .tl-label { color: var(--cream); }
+
+  .tl-theme-tag {
+    margin-top: 6px;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    opacity: 0.7;
+  }
+
   /* ── PREAMBLE ── */
   .preamble {
     max-width: 820px;
@@ -159,15 +387,8 @@
     font-weight: 400;
   }
 
-  .preamble-text em {
-    color: var(--gold-light);
-    font-style: italic;
-  }
-
-  .preamble-text strong {
-    color: var(--cream);
-    font-weight: 600;
-  }
+  .preamble-text em { color: var(--gold-light); font-style: italic; }
+  .preamble-text strong { color: var(--cream); font-weight: 600; }
 
   /* ── SPEAKERS ── */
   .speakers-section {
@@ -177,10 +398,7 @@
       linear-gradient(180deg, var(--dark) 0%, #111 50%, var(--dark) 100%);
   }
 
-  .section-header {
-    text-align: center;
-    margin-bottom: 70px;
-  }
+  .section-header { text-align: center; margin-bottom: 70px; }
 
   .section-overline {
     font-size: 0.7rem;
@@ -220,9 +438,7 @@
     background: linear-gradient(180deg, var(--gold), transparent);
   }
 
-  .speaker-content {
-    padding: 48px 48px 48px 56px;
-  }
+  .speaker-content { padding: 48px 48px 48px 56px; }
 
   .speaker-number {
     font-family: 'Playfair Display', serif;
@@ -303,11 +519,7 @@
     pointer-events: none;
   }
 
-  .programme-grid {
-    max-width: 920px;
-    margin: 0 auto;
-    position: relative;
-  }
+  .programme-grid { max-width: 920px; margin: 0 auto; position: relative; }
 
   .theme-block {
     margin-bottom: 56px;
@@ -344,10 +556,7 @@
     border-bottom: 1px solid rgba(201, 168, 76, 0.15);
   }
 
-  .theme-questions {
-    list-style: none;
-    padding: 0;
-  }
+  .theme-questions { list-style: none; padding: 0; }
 
   .theme-questions li {
     font-size: 0.9rem;
@@ -379,10 +588,7 @@
       var(--dark);
   }
 
-  .schedule-grid {
-    max-width: 720px;
-    margin: 0 auto;
-  }
+  .schedule-grid { max-width: 720px; margin: 0 auto; }
 
   .schedule-item {
     display: grid;
@@ -479,25 +685,238 @@
     line-height: 1.8;
   }
 
-  .rsvp-badge {
-    display: inline-block;
-    font-family: 'Libre Franklin', sans-serif;
+  /* ── REGISTRATION FORM ── */
+  .registration-section {
+    padding: 100px 24px;
+    background:
+      radial-gradient(ellipse at 60% 30%, rgba(26, 60, 52, 0.25) 0%, transparent 55%),
+      radial-gradient(ellipse at 30% 70%, rgba(201, 168, 76, 0.06) 0%, transparent 50%),
+      #0a0a0a;
+    border-top: 1px solid rgba(201, 168, 76, 0.1);
+  }
+
+  .reg-container {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .reg-form-box {
+    border: 1px solid rgba(201, 168, 76, 0.2);
+    border-radius: 2px;
+    padding: 48px 44px;
+    background: rgba(255, 255, 255, 0.02);
+    position: relative;
+  }
+
+  .reg-form-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .reg-intro {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: rgba(250, 246, 238, 0.7);
+    text-align: center;
+    margin-bottom: 36px;
+    line-height: 1.7;
+  }
+
+  .form-row {
+    margin-bottom: 24px;
+  }
+
+  .form-row.double {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 0.65rem;
     font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .form-input,
+  .form-select {
+    width: 100%;
+    padding: 13px 16px;
+    font-family: 'Libre Franklin', sans-serif;
+    font-size: 0.88rem;
+    color: var(--cream);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(250, 246, 238, 0.12);
+    border-radius: 2px;
+    outline: none;
+    transition: all 0.3s ease;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .form-input::placeholder { color: rgba(250, 246, 238, 0.3); }
+
+  .form-input:focus,
+  .form-select:focus {
+    border-color: var(--gold);
+    background: rgba(201, 168, 76, 0.04);
+    box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.08);
+  }
+
+  .form-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23C9A84C' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+    cursor: pointer;
+  }
+
+  .form-select option {
+    background: #1a1a1a;
+    color: var(--cream);
+  }
+
+  /* ── Membership checkbox ── */
+  .membership-block {
+    margin-top: 32px;
+    padding: 24px;
+    border: 1px solid rgba(201, 168, 76, 0.15);
+    border-radius: 2px;
+    background: rgba(201, 168, 76, 0.03);
+  }
+
+  .membership-header {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--cream);
+    margin-bottom: 6px;
+  }
+
+  .membership-desc {
+    font-size: 0.82rem;
+    color: rgba(250, 246, 238, 0.6);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  .checkbox-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+  }
+
+  .checkbox-row input[type="checkbox"] {
+    display: none;
+  }
+
+  .custom-check {
+    width: 22px;
+    height: 22px;
+    border: 2px solid rgba(201, 168, 76, 0.4);
+    border-radius: 2px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    background: transparent;
+  }
+
+  .custom-check svg {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    width: 14px;
+    height: 14px;
+  }
+
+  .checkbox-row input:checked + .custom-check {
+    border-color: var(--gold);
+    background: rgba(201, 168, 76, 0.15);
+  }
+
+  .checkbox-row input:checked + .custom-check svg { opacity: 1; }
+
+  .checkbox-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.02rem;
+    color: rgba(250, 246, 238, 0.8);
+    line-height: 1.5;
+  }
+
+  .form-submit {
+    display: block;
+    width: 100%;
+    margin-top: 36px;
+    padding: 18px;
+    font-family: 'Libre Franklin', sans-serif;
+    font-weight: 700;
     font-size: 0.75rem;
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--deep-green);
     background: var(--gold);
-    padding: 16px 48px;
+    border: none;
     border-radius: 0;
-    text-decoration: none;
+    cursor: pointer;
     transition: all 0.3s ease;
   }
 
-  .rsvp-badge:hover {
+  .form-submit:hover {
     background: var(--gold-light);
     transform: translateY(-2px);
     box-shadow: 0 8px 30px rgba(201, 168, 76, 0.3);
+  }
+
+  .form-note {
+    text-align: center;
+    font-size: 0.72rem;
+    color: rgba(250, 246, 238, 0.35);
+    margin-top: 20px;
+    line-height: 1.5;
+  }
+
+  /* ── SUCCESS STATE ── */
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 60px 20px;
+  }
+
+  .form-success.show { display: block; }
+  .form-success .success-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .form-success h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--cream);
+    margin-bottom: 12px;
+  }
+
+  .form-success p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    color: rgba(250, 246, 238, 0.7);
+    line-height: 1.7;
   }
 
   /* ── FOOTER ── */
@@ -534,15 +953,27 @@
   }
 
   /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .site-nav { padding: 0 16px; height: 54px; }
+    .nav-logo { font-size: 0.85rem; }
+    .nav-links { gap: 4px; }
+    .nav-pill { padding: 5px 10px; font-size: 0.6rem; letter-spacing: 0.1em; }
+    .nav-pill span.pill-text { display: none; }
+    .nav-cta { padding: 6px 14px; font-size: 0.6rem; letter-spacing: 0.15em; }
+  }
+
   @media (max-width: 600px) {
     .speaker-content { padding: 28px 24px 28px 32px; }
     .theme-block { padding: 24px 20px; }
     .schedule-item { grid-template-columns: 90px 1fr; gap: 16px; }
     .hero-details { gap: 24px; }
+    .form-row.double { grid-template-columns: 1fr; }
+    .reg-form-box { padding: 32px 24px; }
   }
 
   /* ── PRINT ── */
   @media print {
+    .site-nav { display: none; }
     body { background: white; color: #1a1a1a; }
     .hero { min-height: auto; padding: 40px; background: white; }
     .hero-title, .section-title, .speaker-name, .theme-title { color: #1a1a1a; }
@@ -553,12 +984,33 @@
 </head>
 <body>
 
+<!-- ═══════════════════ STICKY NAV ═══════════════════ -->
+<nav class="site-nav" id="siteNav">
+  <a href="#" class="nav-logo">The Madiba Club</a>
+  <div class="nav-links">
+    <a href="#speakers" class="nav-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <span class="pill-text">Speakers</span>
+    </a>
+    <a href="#themes" class="nav-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      <span class="pill-text">Themes</span>
+    </a>
+    <a href="#schedule" class="nav-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span class="pill-text">Schedule</span>
+    </a>
+    <a href="#register" class="nav-cta">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+      Register
+    </a>
+  </div>
+</nav>
+
 <!-- ═══════════════════ HERO ═══════════════════ -->
 <section class="hero">
   <div class="hero-overline">You are formally invited to</div>
-  <h1 class="hero-title">
-    The <span class="gold">Madiba</span> Club
-  </h1>
+  <h1 class="hero-title">The <span class="gold">Madiba</span> Club</h1>
   <p class="hero-subtitle">Manchester Chapter I — Inaugural Speaker Event</p>
 
   <div class="divider-gold"></div>
@@ -582,6 +1034,66 @@
       <div class="hero-detail-value">Free</div>
     </div>
   </div>
+
+  <a href="#register" class="hero-cta">
+    Join the Discussion
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+  </a>
+</section>
+
+<!-- ═══════════════════ HORIZONTAL TIMELINE ═══════════════════ -->
+<section class="timeline-section">
+  <div class="section-header">
+    <div class="section-overline">At a Glance</div>
+    <h2 class="section-title" style="font-size: clamp(1.5rem, 3vw, 2rem);">Event Déroulé</h2>
+  </div>
+  <div class="timeline-track-wrapper">
+    <div class="timeline-track">
+      <div class="tl-node">
+        <div class="tl-time">4:00</div>
+        <div class="tl-dot"></div>
+        <div class="tl-label">Doors Open &amp; Arrival</div>
+      </div>
+      <div class="tl-node">
+        <div class="tl-time">4:30</div>
+        <div class="tl-dot"></div>
+        <div class="tl-label">Opening Remarks</div>
+      </div>
+      <div class="tl-node">
+        <div class="tl-time">4:45</div>
+        <div class="tl-dot"></div>
+        <div class="tl-label">Economic Outlook &amp; Capital</div>
+        <div class="tl-theme-tag">Themes I & II</div>
+      </div>
+      <div class="tl-node">
+        <div class="tl-time">5:30</div>
+        <div class="tl-dot"></div>
+        <div class="tl-label">Governance, Soft Power &amp; Leadership</div>
+        <div class="tl-theme-tag">Themes III & IV</div>
+      </div>
+      <div class="tl-node">
+        <div class="tl-time">6:15</div>
+        <div class="tl-dot"></div>
+        <div class="tl-label">Africa Horizon 2050 &amp; Debate</div>
+        <div class="tl-theme-tag">Theme V</div>
+      </div>
+      <div class="tl-node">
+        <div class="tl-time">6:45</div>
+        <div class="tl-dot"></div>
+        <div class="tl-label">Audience Q&amp;A</div>
+      </div>
+      <div class="tl-node">
+        <div class="tl-time">7:15</div>
+        <div class="tl-dot"></div>
+        <div class="tl-label">Closing &amp; Networking</div>
+      </div>
+      <div class="tl-node">
+        <div class="tl-time">8:00</div>
+        <div class="tl-dot"></div>
+        <div class="tl-label">Event Close</div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- ═══════════════════ PREAMBLE ═══════════════════ -->
@@ -596,195 +1108,85 @@
 </section>
 
 <!-- ═══════════════════ SPEAKERS ═══════════════════ -->
-<section class="speakers-section">
+<section class="speakers-section" id="speakers">
   <div class="section-header">
     <div class="section-overline">The Panel</div>
     <h2 class="section-title">Distinguished Speakers</h2>
   </div>
 
-  <!-- SPEAKER 1 -->
   <div class="speaker-card">
     <div class="speaker-content">
       <div class="speaker-number">Speaker I</div>
       <h3 class="speaker-name">Stanislas Zézé-Bayard</h3>
       <div class="speaker-role">CEO &amp; Chairman, Bloomfield Investment Corporation · University of Michigan MPA · Chevalier de l'Ordre National de Côte d'Ivoire</div>
-      <div class="speaker-bio">
-        When Stanislas Zézé founded Bloomfield Investment Corporation in 2007, Africa's Francophone capital markets had no indigenous credit-rating agency. International firms — Standard &amp; Poor's, Moody's, Fitch — held an unchallenged monopoly over the narratives that determined which African sovereigns and corporates were deemed creditworthy. From Abidjan, Zézé built the first Pan-African rating agency operating in West and Central Africa, pioneering a methodology anchored in local-currency baskets rather than dollar-denominated benchmarks alone. That single methodological shift rewrote how risk is perceived across the UEMOA zone.
-      </div>
-      <div class="speaker-bio">
-        His trajectory — from credit risk director at the National Bank of Detroit, through the World Bank's operational risk unit in Washington, to senior country risk officer at the African Development Bank — gave him a panoramic view of how capital flows are gatekept. At Shell Oil Africa, he directed regional credit across West and Central Africa before returning to entrepreneurship. Today, Bloomfield's annual Country Risk Conferences have become decisive calendar events for Francophone investors and policymakers.
-      </div>
-      <div class="speaker-anecdote">
-        Known across Abidjan for his trademark red socks — a flamboyant signature in the otherwise sober world of sovereign ratings — Zézé recounts in his autobiography, <em>The Man with the Red Socks</em>, that when he first proposed the Bloomfield project, the only person who believed in him was his wife, Jeanne. Forbes Afrique put him on its cover in April 2016. In 2018, Financial Afrik crowned him Financier of the Year. Proof, perhaps, that the most disruptive ideas begin with a single believer.
-      </div>
-      <div>
-        <span class="speaker-tag">Sovereign Risk</span>
-        <span class="speaker-tag alt">Capital Markets</span>
-        <span class="speaker-tag alt">Financial Infrastructure</span>
-      </div>
+      <div class="speaker-bio">When Stanislas Zézé founded Bloomfield Investment Corporation in 2007, Africa's Francophone capital markets had no indigenous credit-rating agency. International firms — Standard &amp; Poor's, Moody's, Fitch — held an unchallenged monopoly over the narratives that determined which African sovereigns and corporates were deemed creditworthy. From Abidjan, Zézé built the first Pan-African rating agency operating in West and Central Africa, pioneering a methodology anchored in local-currency baskets rather than dollar-denominated benchmarks alone. That single methodological shift rewrote how risk is perceived across the UEMOA zone.</div>
+      <div class="speaker-bio">His trajectory — from credit risk director at the National Bank of Detroit, through the World Bank's operational risk unit in Washington, to senior country risk officer at the African Development Bank — gave him a panoramic view of how capital flows are gatekept. At Shell Oil Africa, he directed regional credit across West and Central Africa before returning to entrepreneurship. Today, Bloomfield's annual Country Risk Conferences have become decisive calendar events for Francophone investors and policymakers.</div>
+      <div class="speaker-anecdote">Known across Abidjan for his trademark red socks — a flamboyant signature in the otherwise sober world of sovereign ratings — Zézé recounts in his autobiography, <em>The Man with the Red Socks</em>, that when he first proposed the Bloomfield project, the only person who believed in him was his wife, Jeanne. Forbes Afrique put him on its cover in April 2016. In 2018, Financial Afrik crowned him Financier of the Year. Proof, perhaps, that the most disruptive ideas begin with a single believer.</div>
+      <div><span class="speaker-tag">Sovereign Risk</span><span class="speaker-tag alt">Capital Markets</span><span class="speaker-tag alt">Financial Infrastructure</span></div>
     </div>
   </div>
 
-  <!-- SPEAKER 2 -->
   <div class="speaker-card">
     <div class="speaker-content">
       <div class="speaker-number">Speaker II</div>
       <h3 class="speaker-name">Dr Alessia Isopi</h3>
       <div class="speaker-role">Lecturer in Development Economics, University of Manchester · PhD, Università di Roma 'Tor Vergata' · Marie Curie Research Fellow</div>
-      <div class="speaker-bio">
-        Dr Isopi belongs to a rare category of development economist: one who can traverse the arid terrain of econometric modelling and emerge on the other side with narratives that are lucid, urgent, and startlingly human. Her research at Manchester spans development economics, information asymmetries, and experimental economics, with a particular strength in translating abstract theory into concrete policy insight. Her scholarship carries the rigour of empirical evidence and the clarity of someone who has spent over a decade making complex ideas accessible to diverse audiences.
-      </div>
-      <div class="speaker-bio">
-        Trained at LUISS 'Guido Carli' in Rome before earning her doctorate at Tor Vergata, she held a prestigious Marie Curie Intra-European Fellowship at the University of Nottingham. Her published work ranges from aid allocation and corruption to the political economy of institutions. She sits within a department at Manchester that traces its development economics lineage to W. Arthur Lewis and Hans Singer — pioneers of the discipline itself.
-      </div>
-      <div class="speaker-anecdote">
-        Her most celebrated paper may also be her most deliciously unexpected: published in the Journal of Economic History, "Origins of the Sicilian Mafia: The Market for Lemons" argues that the mafia emerged not from political intrigue, but from the booming 19th-century citrus trade — lemon growers needed protection, and the Cosa Nostra obliged. It is a masterclass in how economic structures produce institutional pathologies — a lens she will bring to Africa's own resource-governance dilemmas.
-      </div>
-      <div>
-        <span class="speaker-tag">Development Economics</span>
-        <span class="speaker-tag alt">Empirical Evidence</span>
-        <span class="speaker-tag alt">Institutional Economics</span>
-      </div>
+      <div class="speaker-bio">Dr Isopi belongs to a rare category of development economist: one who can traverse the arid terrain of econometric modelling and emerge on the other side with narratives that are lucid, urgent, and startlingly human. Her research at Manchester spans development economics, information asymmetries, and experimental economics, with a particular strength in translating abstract theory into concrete policy insight. Her scholarship carries the rigour of empirical evidence and the clarity of someone who has spent over a decade making complex ideas accessible to diverse audiences.</div>
+      <div class="speaker-bio">Trained at LUISS 'Guido Carli' in Rome before earning her doctorate at Tor Vergata, she held a prestigious Marie Curie Intra-European Fellowship at the University of Nottingham. Her published work ranges from aid allocation and corruption to the political economy of institutions. She sits within a department at Manchester that traces its development economics lineage to W. Arthur Lewis and Hans Singer — pioneers of the discipline itself.</div>
+      <div class="speaker-anecdote">Her most celebrated paper may also be her most deliciously unexpected: published in the Journal of Economic History, "Origins of the Sicilian Mafia: The Market for Lemons" argues that the mafia emerged not from political intrigue, but from the booming 19th-century citrus trade — lemon growers needed protection, and the Cosa Nostra obliged. It is a masterclass in how economic structures produce institutional pathologies — a lens she will bring to Africa's own resource-governance dilemmas.</div>
+      <div><span class="speaker-tag">Development Economics</span><span class="speaker-tag alt">Empirical Evidence</span><span class="speaker-tag alt">Institutional Economics</span></div>
     </div>
   </div>
 
-  <!-- SPEAKER 3 -->
   <div class="speaker-card">
     <div class="speaker-content">
       <div class="speaker-number">Speaker III</div>
       <h3 class="speaker-name">H.E. Ambassador Bello A. Jaye</h3>
       <div class="speaker-role">Head of Industry, Trade and Investment, Nigerian High Commission, London · / Mr Magaji Barda</div>
-      <div class="speaker-bio">
-        Ambassador Jaye occupies the intersection where statecraft meets market access. As Head of Industry, Trade and Investment at the Nigerian High Commission in London, he serves as the principal diplomatic interface between Nigeria's economic ambitions and British capital, trade corridors, and institutional partnerships. His portfolio encompasses everything from championing the UK's Developing Countries Trading Scheme — which grants duty-free access to nearly three thousand Nigerian goods — to brokering investment pathways in agriculture, energy, technology, and healthcare.
-      </div>
-      <div class="speaker-bio">
-        In a role that demands equal fluency in boardrooms and policy chambers, Ambassador Jaye has distinguished himself as an advocate for cross-border trade that is not merely transactional but structurally transformative. His recent engagements have emphasised the importance of diaspora investment as a catalyst for domestic industrial development, and he has been vocal about the reforms needed to attract patient, productive foreign direct investment rather than speculative inflows.
-      </div>
-      <div class="speaker-anecdote">
-        In April 2025, Ambassador Jaye made headlines for hosting a business meeting at the Nigerian High Commission where the keynote speaker was a sixteen-year-old youth ambassador, who delivered a speech on why young Black British people should reconnect with their roots and explore business opportunities across both the UK and Nigeria. It was a gesture that said everything about his philosophy: that the future of trade diplomacy belongs not only to those who have arrived, but to those who are arriving.
-      </div>
-      <div>
-        <span class="speaker-tag">Trade Diplomacy</span>
-        <span class="speaker-tag alt">Policy Reform</span>
-        <span class="speaker-tag alt">Nigeria–UK Corridor</span>
-      </div>
+      <div class="speaker-bio">Ambassador Jaye occupies the intersection where statecraft meets market access. As Head of Industry, Trade and Investment at the Nigerian High Commission in London, he serves as the principal diplomatic interface between Nigeria's economic ambitions and British capital, trade corridors, and institutional partnerships. His portfolio encompasses everything from championing the UK's Developing Countries Trading Scheme — which grants duty-free access to nearly three thousand Nigerian goods — to brokering investment pathways in agriculture, energy, technology, and healthcare.</div>
+      <div class="speaker-bio">In a role that demands equal fluency in boardrooms and policy chambers, Ambassador Jaye has distinguished himself as an advocate for cross-border trade that is not merely transactional but structurally transformative. His recent engagements have emphasised the importance of diaspora investment as a catalyst for domestic industrial development, and he has been vocal about the reforms needed to attract patient, productive foreign direct investment rather than speculative inflows.</div>
+      <div class="speaker-anecdote">In April 2025, Ambassador Jaye made headlines for hosting a business meeting at the Nigerian High Commission where the keynote speaker was a sixteen-year-old youth ambassador, who delivered a speech on why young Black British people should reconnect with their roots and explore business opportunities across both the UK and Nigeria. It was a gesture that said everything about his philosophy: that the future of trade diplomacy belongs not only to those who have arrived, but to those who are arriving.</div>
+      <div><span class="speaker-tag">Trade Diplomacy</span><span class="speaker-tag alt">Policy Reform</span><span class="speaker-tag alt">Nigeria–UK Corridor</span></div>
     </div>
   </div>
 
-  <!-- SPEAKER 4 -->
   <div class="speaker-card">
     <div class="speaker-content">
       <div class="speaker-number">Speaker IV</div>
       <h3 class="speaker-name">Prof. Carl Death</h3>
       <div class="speaker-role">Senior Lecturer in International Political Economy, University of Manchester · Author, <em>African Climate Futures</em> (OUP, 2025)</div>
-      <div class="speaker-bio">
-        Carl Death has spent two decades at the precise collision point between African politics, environmental governance, and global power structures. His research — conducted across South Africa, Tanzania, and at institutions including WISER (Wits), Stellenbosch, and KwaZulu-Natal — draws on Foucauldian governmentality theory to reveal how environmental policies and development discourses are weaponised, negotiated, and resisted across the continent.
-      </div>
-      <div class="speaker-bio">
-        At Manchester, he convenes the BISA Africa and International Studies working group and serves as Associate Editor of <em>International Relations</em>. His latest book, <em>African Climate Futures</em> (Oxford University Press, 2025), examines how climate-changed futures are being imagined across the continent — blending political analysis with African speculative fiction and futurist narratives.
-      </div>
-      <div class="speaker-anecdote">
-        What distinguishes Death from conventional IR scholars is an intellectual fearlessness that spans registers: he is as likely to analyse a UN summit through the lens of biopolitics as he is to publish a peer-reviewed article on Trevor Noah's stand-up comedy as a form of political resistance. His paper on "ambivalent mockery" in Noah's performances argued that comedy can simultaneously inhabit and subvert dominant power relations — a framework that proves unexpectedly productive when applied to Africa's own diplomatic posture on the world stage.
-      </div>
-      <div>
-        <span class="speaker-tag">African Politics</span>
-        <span class="speaker-tag alt">Governance &amp; Soft Power</span>
-        <span class="speaker-tag alt">Climate Futures</span>
-      </div>
+      <div class="speaker-bio">Carl Death has spent two decades at the precise collision point between African politics, environmental governance, and global power structures. His research — conducted across South Africa, Tanzania, and at institutions including WISER (Wits), Stellenbosch, and KwaZulu-Natal — draws on Foucauldian governmentality theory to reveal how environmental policies and development discourses are weaponised, negotiated, and resisted across the continent.</div>
+      <div class="speaker-bio">At Manchester, he convenes the BISA Africa and International Studies working group and serves as Associate Editor of <em>International Relations</em>. His latest book, <em>African Climate Futures</em> (Oxford University Press, 2025), examines how climate-changed futures are being imagined across the continent — blending political analysis with African speculative fiction and futurist narratives.</div>
+      <div class="speaker-anecdote">What distinguishes Death from conventional IR scholars is an intellectual fearlessness that spans registers: he is as likely to analyse a UN summit through the lens of biopolitics as he is to publish a peer-reviewed article on Trevor Noah's stand-up comedy as a form of political resistance. His paper on "ambivalent mockery" in Noah's performances argued that comedy can simultaneously inhabit and subvert dominant power relations — a framework that proves unexpectedly productive when applied to Africa's own diplomatic posture on the world stage.</div>
+      <div><span class="speaker-tag">African Politics</span><span class="speaker-tag alt">Governance &amp; Soft Power</span><span class="speaker-tag alt">Climate Futures</span></div>
     </div>
   </div>
 
-  <!-- SPEAKER 5 -->
   <div class="speaker-card">
     <div class="speaker-content">
       <div class="speaker-number">Speaker V</div>
       <h3 class="speaker-name">Edenamiuki Aiguobasinmwin</h3>
       <div class="speaker-role">Founder, Elevate Young Minds &amp; Young Creative Leaders · Member, Commonwealth Youth for Development and Peace · Arts Council England North Area Board Member</div>
-      <div class="speaker-bio">
-        Known to his community simply as <em>Namiuki</em>, Edenamiuki Aiguobasinmwin is a creative practitioner, social entrepreneur, and institution-builder who uses the arts as a vehicle for meaningful social transformation. Since founding Elevate Young Minds in Manchester — a Black-led, solution-driven youth organisation — he has designed pathways for young people across the arts, enterprise, and leadership, operating from Monsall, one of Greater Manchester's most deprived communities.
-      </div>
-      <div class="speaker-bio">
-        His reach, however, is anything but local. Through the Young Creative Leaders network, he has implemented programmes from Leeds Beckett to Lisbon's EKA Palace, from Brussels to Tanzania, all aligned to the United Nations Sustainable Development Goals with a target of developing 10,000 young artists, social entrepreneurs, and leaders by 2030. His Face Festival — a youth-led, Global Majority-led international festival — has grown into a ten-day programme encompassing hip-hop dance, Model United Nations, film, and community awards.
-      </div>
-      <div class="speaker-anecdote">
-        At the 2022 Commonwealth Heads of Government Meeting in Kigali, Namiuki secured meetings with youth and sports ministers from Ghana to the Maldives, Nigeria to Papua New Guinea — all before the age of thirty. He organised the Rotation Dance Exchange Commonwealth Championships as an official CHOGM sideline event, and led a seven-country mission across Europe to document the experiences of Black and African refugees fleeing the conflict in Ukraine. He approaches the UN Summit of the Future sidelines, the WTO Public Forum, and World Urban Forum with equal ease — testament to a conviction that youth leadership is not a training exercise but a present-tense responsibility.
-      </div>
-      <div>
-        <span class="speaker-tag">Youth Leadership</span>
-        <span class="speaker-tag alt">Arts &amp; Culture</span>
-        <span class="speaker-tag alt">Commonwealth Development</span>
-      </div>
+      <div class="speaker-bio">Known to his community simply as <em>Namiuki</em>, Edenamiuki Aiguobasinmwin is a creative practitioner, social entrepreneur, and institution-builder who uses the arts as a vehicle for meaningful social transformation. Since founding Elevate Young Minds in Manchester — a Black-led, solution-driven youth organisation — he has designed pathways for young people across the arts, enterprise, and leadership, operating from Monsall, one of Greater Manchester's most deprived communities.</div>
+      <div class="speaker-bio">His reach, however, is anything but local. Through the Young Creative Leaders network, he has implemented programmes from Leeds Beckett to Lisbon's EKA Palace, from Brussels to Tanzania, all aligned to the United Nations Sustainable Development Goals with a target of developing 10,000 young artists, social entrepreneurs, and leaders by 2030. His Face Festival — a youth-led, Global Majority-led international festival — has grown into a ten-day programme encompassing hip-hop dance, Model United Nations, film, and community awards.</div>
+      <div class="speaker-anecdote">At the 2022 Commonwealth Heads of Government Meeting in Kigali, Namiuki secured meetings with youth and sports ministers from Ghana to the Maldives, Nigeria to Papua New Guinea — all before the age of thirty. He organised the Rotation Dance Exchange Commonwealth Championships as an official CHOGM sideline event, and led a seven-country mission across Europe to document the experiences of Black and African refugees fleeing the conflict in Ukraine. He approaches the UN Summit of the Future sidelines, the WTO Public Forum, and World Urban Forum with equal ease — testament to a conviction that youth leadership is not a training exercise but a present-tense responsibility.</div>
+      <div><span class="speaker-tag">Youth Leadership</span><span class="speaker-tag alt">Arts &amp; Culture</span><span class="speaker-tag alt">Commonwealth Development</span></div>
     </div>
   </div>
 </section>
 
 <!-- ═══════════════════ PROGRAMME ═══════════════════ -->
-<section class="programme-section">
+<section class="programme-section" id="themes">
   <div class="section-header">
     <div class="section-overline">The Conversation</div>
     <h2 class="section-title">Panel Themes &amp; Guiding Questions</h2>
   </div>
-
   <div class="programme-grid">
-
-    <div class="theme-block">
-      <div class="theme-number">Theme I</div>
-      <h3 class="theme-title">The Economic Outlook: Risk, Opportunity &amp; Structural Transformation</h3>
-      <div class="theme-guiding">"Is Africa's next growth decade more likely to be driven by structural reform, demographics, or global capital flows?"</div>
-      <ul class="theme-questions">
-        <li>What are the most misunderstood risks when international investors evaluate African economies? <span class="tag">[BIC]</span></li>
-        <li>What structural transformation does Africa still need to unlock industrial growth? <span class="tag">[Dev Econ]</span></li>
-        <li>How do we transition from the current extractive and unequal growth model to an inclusive one?</li>
-        <li>What is the biggest development misconception policymakers keep repeating?</li>
-        <li>From a policy standpoint, what reforms are most attractive to foreign capital today? <span class="tag">[Nigerian HC]</span></li>
-        <li>What sectors will define Nigeria's next decade?</li>
-      </ul>
-    </div>
-
-    <div class="theme-block">
-      <div class="theme-number">Theme II</div>
-      <h3 class="theme-title">Financial Markets &amp; Capital Mobilisation</h3>
-      <div class="theme-guiding">"Does debt finance development, or trap countries?"</div>
-      <ul class="theme-questions">
-        <li>How can governments attract long-term productive FDI rather than speculative flows?</li>
-        <li>Is Africa under-financed, or under-governed? <span class="tag">[Open Floor]</span></li>
-      </ul>
-    </div>
-
-    <div class="theme-block">
-      <div class="theme-number">Theme III</div>
-      <h3 class="theme-title">Politics, Governance &amp; Soft Power</h3>
-      <div class="theme-guiding">"Can economic transformation occur without political transformation?"</div>
-      <ul class="theme-questions">
-        <li>Can regional blocs realistically substitute for fragile national institutions? <span class="tag">[African Politics]</span></li>
-        <li>Is political instability overstated in global narratives?</li>
-        <li>Is soft power an underutilised African asset?</li>
-      </ul>
-    </div>
-
-    <div class="theme-block">
-      <div class="theme-number">Theme IV</div>
-      <h3 class="theme-title">Social Norms, Human Capital &amp; Leadership</h3>
-      <div class="theme-guiding">"What social changes are necessary to unlock Africa's economic potential?"</div>
-      <ul class="theme-questions">
-        <li>How do we cultivate leadership rather than just aspiration in the African and Afro-descendant youth? <span class="tag">[Youth]</span></li>
-        <li>What narratives must change within our communities?</li>
-        <li>Should development focus first on institutions or on mindset?</li>
-      </ul>
-    </div>
-
-    <div class="theme-block">
-      <div class="theme-number">Theme V</div>
-      <h3 class="theme-title">Africa's Global Influence by 2050</h3>
-      <div class="theme-guiding">"Will Africa be a participant in the global order, or a shaper of it?"</div>
-      <ul class="theme-questions">
-        <li>Can Africa act collectively on the international stage?</li>
-        <li>What would need to happen for African markets to be considered 'core' rather than 'emerging'?</li>
-        <li>Can Africa become a net exporter of capital rather than an importer?</li>
-        <li>What role can African art, film, and cultural production play in reshaping the continent's global image?</li>
-      </ul>
-    </div>
-
+    <div class="theme-block"><div class="theme-number">Theme I</div><h3 class="theme-title">The Economic Outlook: Risk, Opportunity &amp; Structural Transformation</h3><div class="theme-guiding">"Is Africa's next growth decade more likely to be driven by structural reform, demographics, or global capital flows?"</div><ul class="theme-questions"><li>What are the most misunderstood risks when international investors evaluate African economies? <span class="tag">[BIC]</span></li><li>What structural transformation does Africa still need to unlock industrial growth? <span class="tag">[Dev Econ]</span></li><li>How do we transition from the current extractive and unequal growth model to an inclusive one?</li><li>What is the biggest development misconception policymakers keep repeating?</li><li>From a policy standpoint, what reforms are most attractive to foreign capital today? <span class="tag">[Nigerian HC]</span></li><li>What sectors will define Nigeria's next decade?</li></ul></div>
+    <div class="theme-block"><div class="theme-number">Theme II</div><h3 class="theme-title">Financial Markets &amp; Capital Mobilisation</h3><div class="theme-guiding">"Does debt finance development, or trap countries?"</div><ul class="theme-questions"><li>How can governments attract long-term productive FDI rather than speculative flows?</li><li>Is Africa under-financed, or under-governed? <span class="tag">[Open Floor]</span></li></ul></div>
+    <div class="theme-block"><div class="theme-number">Theme III</div><h3 class="theme-title">Politics, Governance &amp; Soft Power</h3><div class="theme-guiding">"Can economic transformation occur without political transformation?"</div><ul class="theme-questions"><li>Can regional blocs realistically substitute for fragile national institutions? <span class="tag">[African Politics]</span></li><li>Is political instability overstated in global narratives?</li><li>Is soft power an underutilised African asset?</li></ul></div>
+    <div class="theme-block"><div class="theme-number">Theme IV</div><h3 class="theme-title">Social Norms, Human Capital &amp; Leadership</h3><div class="theme-guiding">"What social changes are necessary to unlock Africa's economic potential?"</div><ul class="theme-questions"><li>How do we cultivate leadership rather than just aspiration in the African and Afro-descendant youth? <span class="tag">[Youth]</span></li><li>What narratives must change within our communities?</li><li>Should development focus first on institutions or on mindset?</li></ul></div>
+    <div class="theme-block"><div class="theme-number">Theme V</div><h3 class="theme-title">Africa's Global Influence by 2050</h3><div class="theme-guiding">"Will Africa be a participant in the global order, or a shaper of it?"</div><ul class="theme-questions"><li>Can Africa act collectively on the international stage?</li><li>What would need to happen for African markets to be considered 'core' rather than 'emerging'?</li><li>Can Africa become a net exporter of capital rather than an importer?</li><li>What role can African art, film, and cultural production play in reshaping the continent's global image?</li></ul></div>
   </div>
 </section>
 
@@ -804,85 +1206,110 @@
 </section>
 
 <!-- ═══════════════════ SCHEDULE ═══════════════════ -->
-<section class="schedule-section">
+<section class="schedule-section" id="schedule">
   <div class="section-header">
     <div class="section-overline">On the Day</div>
     <h2 class="section-title">Event Schedule</h2>
   </div>
   <div class="schedule-grid">
-    <div class="schedule-item">
-      <div class="schedule-time">4:00 PM</div>
-      <div class="schedule-desc">
-        <h4>Doors Open &amp; Arrival</h4>
-        <p>Guests are welcomed into the building and enjoy networking with fellow attendees.</p>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">4:30 PM</div>
-      <div class="schedule-desc">
-        <h4>Opening Remarks</h4>
-        <p>Welcome address by the Madiba Club, and Framing the evening's event.</p>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">4:45 PM</div>
-      <div class="schedule-desc">
-        <h4>Panel Session I — Themes I &amp; II</h4>
-        <p>The Economic Outlook, Structural Transformation, Financial Markets &amp; Capital Mobilisation.</p>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">5:30 PM</div>
-      <div class="schedule-desc">
-        <h4>Panel Session II — Themes III &amp; IV</h4>
-        <p>Politics, Governance &amp; Soft Power. Social Norms, Human Capital &amp; Leadership.</p>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">6:15 PM</div>
-      <div class="schedule-desc">
-        <h4>Africa Horizon 2050 — Theme V &amp; Open Debate</h4>
-        <p>Rapid-fire provocations and open debate on the future of Africa Global Influence by 2050.</p>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">6:45 PM</div>
-      <div class="schedule-desc">
-        <h4>Audience Q&amp;A</h4>
-        <p>Direct engagement with our distinguished panel and a chance to ask any questions.</p>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">7:15 PM</div>
-      <div class="schedule-desc">
-        <h4>Closing Reflections &amp; Networking</h4>
-        <p>Final remarks. Open networking and continued conversations.</p>
-      </div>
-    </div>
-    <div class="schedule-item">
-      <div class="schedule-time">8:00 PM</div>
-      <div class="schedule-desc">
-        <h4>Event Closure</h4>
-        <p></p>
-      </div>
-    </div>
+    <div class="schedule-item"><div class="schedule-time">4:00 PM</div><div class="schedule-desc"><h4>Doors Open &amp; Arrival</h4><p>Guests are welcomed into the building and enjoy networking with fellow attendees.</p></div></div>
+    <div class="schedule-item"><div class="schedule-time">4:30 PM</div><div class="schedule-desc"><h4>Opening Remarks</h4><p>Welcome address by the Madiba Club, and framing the evening's event.</p></div></div>
+    <div class="schedule-item"><div class="schedule-time">4:45 PM</div><div class="schedule-desc"><h4>Panel Session I — Themes I &amp; II</h4><p>The Economic Outlook, Structural Transformation, Financial Markets &amp; Capital Mobilisation.</p></div></div>
+    <div class="schedule-item"><div class="schedule-time">5:30 PM</div><div class="schedule-desc"><h4>Panel Session II — Themes III &amp; IV</h4><p>Politics, Governance &amp; Soft Power. Social Norms, Human Capital &amp; Leadership.</p></div></div>
+    <div class="schedule-item"><div class="schedule-time">6:15 PM</div><div class="schedule-desc"><h4>Africa Horizon 2050 — Theme V &amp; Open Debate</h4><p>Rapid-fire provocations and open debate on the future of Africa's Global Influence by 2050.</p></div></div>
+    <div class="schedule-item"><div class="schedule-time">6:45 PM</div><div class="schedule-desc"><h4>Audience Q&amp;A</h4><p>Direct engagement with our distinguished panel and a chance to ask any questions.</p></div></div>
+    <div class="schedule-item"><div class="schedule-time">7:15 PM</div><div class="schedule-desc"><h4>Closing Reflections &amp; Networking</h4><p>Final remarks. Open networking and continued conversations.</p></div></div>
+    <div class="schedule-item"><div class="schedule-time">8:00 PM</div><div class="schedule-desc"><h4>Event Closure</h4><p></p></div></div>
   </div>
 </section>
 
-<!-- ═══════════════════ CLOSING ═══════════════════ -->
+<!-- ═══════════════════ CLOSING QUOTE ═══════════════════ -->
 <section class="closing">
-  <div class="closing-quote">
-    "What counts in life is not the mere fact that we have lived. It is what difference we have made to the lives of others that will determine the significance of the life we lead."
-  </div>
+  <div class="closing-quote">"What counts in life is not the mere fact that we have lived. It is what difference we have made to the lives of others that will determine the significance of the life we lead."</div>
   <div class="closing-attr">— Nelson Mandela</div>
-
   <div class="divider-gold"></div>
+  <div class="closing-cta">The Madiba Club, Manchester Episode I is a free event open to students, academics, professionals, and all who believe that the future of the African continent is a question that belongs to everyone willing to think seriously about it.</div>
+</section>
 
-  <div class="closing-cta">
-    The Madiba Club, Manchester Episode I: "Africa's Next Chapter: Financing Growth, Shaping Governance, and Redefining Influence", is a free event open to students, academics, professionals, and all who believe that the future of the African continent is a question that belongs to everyone willing to think seriously about it.
+<!-- ═══════════════════ REGISTRATION FORM ═══════════════════ -->
+<section class="registration-section" id="register">
+  <div class="reg-container">
+    <div class="section-header">
+      <div class="section-overline">Join the Discussion</div>
+      <h2 class="section-title">Register Your Attendance</h2>
+    </div>
+
+    <div class="reg-form-box" id="regFormBox">
+      <div class="reg-intro">Secure your seat at the inaugural Madiba Club speaker event. Registration is free and open to all.</div>
+
+      <!-- The actual form — no <form> tag, pure JS submission -->
+      <div id="regFormFields">
+        <div class="form-row double">
+          <div>
+            <label class="form-label" for="firstName">First Name *</label>
+            <input class="form-input" type="text" id="firstName" placeholder="First name" required>
+          </div>
+          <div>
+            <label class="form-label" for="lastName">Last Name *</label>
+            <input class="form-input" type="text" id="lastName" placeholder="Last name" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="email">Email Address *</label>
+          <input class="form-input" type="email" id="email" placeholder="you@example.com" required>
+        </div>
+
+        <div class="form-row double">
+          <div>
+            <label class="form-label" for="status">I am a... *</label>
+            <select class="form-select" id="status" required>
+              <option value="" disabled selected>Select your status</option>
+              <option value="student">Student</option>
+              <option value="professional">Professional</option>
+              <option value="professor">Professor / Academic</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label" for="title">Title / Role</label>
+            <input class="form-input" type="text" id="title" placeholder="e.g. MSc Finance, Consultant…">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label" for="affiliation">University / Organisation</label>
+          <input class="form-input" type="text" id="affiliation" placeholder="e.g. University of Manchester">
+        </div>
+
+        <!-- Membership opt-in -->
+        <div class="membership-block">
+          <div class="membership-header">Become a Madiba Club Member</div>
+          <div class="membership-desc">The Madiba Club is building a community of thinkers, practitioners, and future leaders committed to Africa's transformation. Members receive priority invitations to future events, access to post-event briefings, and the opportunity to shape upcoming programmes.</div>
+          <label class="checkbox-row">
+            <input type="checkbox" id="memberInterest">
+            <span class="custom-check">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <span class="checkbox-label">I would like to be considered for membership of The Madiba Club.</span>
+          </label>
+        </div>
+
+        <button class="form-submit" id="submitBtn" onclick="handleSubmit()">Register Now</button>
+
+        <div class="form-note">By registering, you confirm your interest in attending. You will receive a confirmation email with further details closer to the event date. Your information will only be used for event communications.</div>
+      </div>
+
+      <!-- Success state -->
+      <div class="form-success" id="formSuccess">
+        <div class="success-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3>You're Registered</h3>
+        <p>Thank you for joining The Madiba Club. We will be in touch with event details and confirmation closer to the date. If you expressed interest in membership, a member of the team will reach out to you directly.</p>
+      </div>
+    </div>
   </div>
-
-  <a href="#" class="rsvp-badge">Join the Discussion</a>
 </section>
 
 <!-- ═══════════════════ FOOTER ═══════════════════ -->
@@ -891,6 +1318,54 @@
   <p>Alliance Manchester Business School · The University of Manchester · Booth Street West, Manchester M15 6PB</p>
   <p style="margin-top: 8px;">Manchester Madiba Club · March 2026</p>
 </footer>
+
+<script>
+  // ── Nav scroll effect ──
+  const nav = document.getElementById('siteNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // ── Form submission ──
+  function handleSubmit() {
+    const firstName = document.getElementById('firstName').value.trim();
+    const lastName = document.getElementById('lastName').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const status = document.getElementById('status').value;
+
+    if (!firstName || !lastName || !email || !status) {
+      // Brief highlight on empty required fields
+      ['firstName','lastName','email','status'].forEach(id => {
+        const el = document.getElementById(id);
+        if (!el.value || el.value.trim() === '') {
+          el.style.borderColor = '#A0392D';
+          setTimeout(() => { el.style.borderColor = ''; }, 2000);
+        }
+      });
+      return;
+    }
+
+    // Simple email validation
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      document.getElementById('email').style.borderColor = '#A0392D';
+      setTimeout(() => { document.getElementById('email').style.borderColor = ''; }, 2000);
+      return;
+    }
+
+    // Hide form, show success
+    document.getElementById('regFormFields').style.display = 'none';
+    const success = document.getElementById('formSuccess');
+    success.classList.add('show');
+
+    // Log data (replace with actual backend call)
+    console.log('Registration:', {
+      firstName, lastName, email, status,
+      title: document.getElementById('title').value.trim(),
+      affiliation: document.getElementById('affiliation').value.trim(),
+      memberInterest: document.getElementById('memberInterest').checked
+    });
+  }
+</script>
 
 </body>
 </html>
